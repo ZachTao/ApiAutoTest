@@ -11,33 +11,47 @@ import xlrd
 class ReadWriteExcel:
 
     def read_excel(self, filepath):
-        tables = []
+        urls = []
+        params = []
+        paramvals = []
+        keys = []
+        rtunfmats = []
+        isruns = []
         # 打开文件
         workbook = xlrd.open_workbook(filepath)
-        # 获取所有sheet
+        '''
+        # 获取sheetname,也可以获取sheet后获取属性sheet.name
         sheet_name = workbook.sheet_names()[0]
-        # 根据sheet索引或者名称获取sheet内容
-        sheet = workbook.sheet_by_index(0)  # sheet索引从0开始
-        # sheet = workbook.sheet_by_name('Sheet1')
-        # print (workboot.sheets()[0])
+        print('sheet_name'+sheet_name)
+        '''
+        sheet = workbook.sheet_by_index(0)  # sheet索引从0开始，获取第一个sheet页面内容
         # sheet的名称，行数，列数
         print(sheet.name, sheet.nrows, sheet.ncols)
-
-        # 获取整行和整列的值（数组）
+        '''
+        获取整行和整列的值（数组）
         rows = sheet.row_values(1)  # 获取第2行内容
         cols = sheet.col_values(2)  # 获取第3列内容
         print(rows)
         print(cols)
-
-        for rown in range(sheet.nrows):
-            array = {'L1': sheet.cell_value(rown, 0), 'L2': sheet.cell_value(rown, 1), 'L3': sheet.cell_value(rown, 2),
-                     'L4': sheet.cell_value(rown, 3),  'L5': sheet.cell_value(rown, 4),
-                     'L6': sheet.cell_value(rown, 5)}
-            tables.append(array)
-
-        print(len(tables))
-        print(tables)
-        # print (tables[5])
+        '''
+        for row in range(sheet.nrows):
+            rowvalue = sheet.row_values(row)
+            print(rowvalue)
+        # sheet.cell_value(rown, 0) 获取具体单元格参数值
+        for row in range(sheet.nrows-1):
+            urlval = sheet.cell_value(row+1, 4)
+            param = sheet.cell_value(row+1, 6)
+            paramval = sheet.cell_value(row+1, 7)
+            key = sheet.cell_value(row+1, 8)
+            rtunfmat = sheet.cell_value(row+1, 10)
+            isrun = sheet.cell_value(row+1, 13)
+            urls.append(urlval)
+            params.append(param)
+            paramvals.append(paramval)
+            keys.append(key)
+            rtunfmats.append(rtunfmat)
+            isruns.append(isrun)
+        return urls, params, paramvals, keys, rtunfmats, isruns
 
     def update_excel(self):
         pass
@@ -45,4 +59,4 @@ class ReadWriteExcel:
 
 if __name__ == '__main__':
     A = ReadWriteExcel()
-    A.read_excel(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ZACH工作周报-2021（8.16-8.20).xls')
+    A.read_excel(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls')
