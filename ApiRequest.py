@@ -11,14 +11,14 @@ from ReadWriteExcel import ReadWriteExcel
 
 class ApiRequest:
 
-    def get_params(self,filpath):
+    def get_params(self, filpath):
         get_pm = ReadWriteExcel()   # 一定要先实例化再引用类方法
         pms = get_pm.read_excel(filpath)
         for pm in pms:
             req_typ = pm['req_type']
             url_var = pm['url_val']
             # 组合params
-            paras={
+            paras = {
                 'key': pm['key'],
                 'dtype': pm['rtunfmat'],
             }
