@@ -91,7 +91,6 @@ Version in 0.7.1
 # TODO: simplify javascript using ,ore than 1 class in the class attribute?
 
 import datetime
-#2.7版本为 import StringIO
 import io
 import sys
 import time
@@ -313,8 +312,8 @@ pre         { }
 
 /* -- heading ---------------------------------------------------------------------- */
 h1 {
-    font-size: 16pt;
-    color: gray;
+	font-size: 16pt;
+	color: gray;
 }
 .heading {
     margin-top: 0ex;
@@ -467,12 +466,12 @@ a.popup_link:hover {
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" οnfοcus='this.blur();' href="javascript:showTestDetail('div_%(tid)s')" >
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_%(tid)s')" >
         %(status)s</a>
 
     <div id='div_%(tid)s' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a οnfοcus='this.blur();' οnclick="document.getElementById('div_%(tid)s').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_%(tid)s').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
@@ -537,7 +536,6 @@ class _TestResult(TestResult):
     def startTest(self, test):
         TestResult.startTest(self, test)
         # just one buffer for both stdout and stderr
-        # 2.7版本为 self.outputBuffer = StringIO.StringIO()
         self.outputBuffer = io.StringIO()
         stdout_redirector.fp = self.outputBuffer
         stderr_redirector.fp = self.outputBuffer
@@ -630,10 +628,9 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print(sys.stderr,'\nTime Elapsed=%s' %(self.stopTime-self.startTime))
-        #2.7版本 print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
+        # print >> sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
+        print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
         return result
-
 
 
     def sortResult(self, result_list):
@@ -643,7 +640,6 @@ class HTMLTestRunner(Template_mixin):
         classes = []
         for n,t,o,e in result_list:
             cls = t.__class__
-            # 2.7版本 if not rmap.has_key(cls)
             if not cls in rmap:
                 rmap[cls] = []
                 classes.append(cls)
@@ -766,24 +762,23 @@ class HTMLTestRunner(Template_mixin):
 
         # o and e should be byte string because they are collected from stdout and stderr?
         if isinstance(o,str):
-            uo = e
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
-            # 2.7版本uo = o.decode('latin-1')
+            # uo = o.decode('latin-1')
+            uo = e
         else:
             uo = o
         if isinstance(e,str):
-            ue = e
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
-            # 2.7 版本 ue = e.decode('latin-1')
-
+            # ue = e.decode('latin-1')
+            ue = e
         else:
             ue = e
 
         script = self.REPORT_TEST_OUTPUT_TMPL % dict(
             id = tid,
-            output = saxutils.escape(uo+ue),
+            output = saxutils.escape(str(uo)+ue),
         )
 
         row = tmpl % dict(
