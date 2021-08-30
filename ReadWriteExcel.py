@@ -11,12 +11,7 @@ import xlrd
 class ReadWriteExcel:
 
     def read_excel(self, filepath):
-        urls = []
-        params = []
-        paramvals = []
-        keys = []
-        rtunfmats = []
-        isruns = []
+        pams = []
         # 打开文件
         workbook = xlrd.open_workbook(filepath)
         '''
@@ -26,7 +21,7 @@ class ReadWriteExcel:
         '''
         sheet = workbook.sheet_by_index(0)  # sheet索引从0开始，获取第一个sheet页面内容
         # sheet的名称，行数，列数
-        print(sheet.name, sheet.nrows, sheet.ncols)
+        # print(sheet.name, sheet.nrows, sheet.ncols)
         '''
         获取整行和整列的值（数组）
         rows = sheet.row_values(1)  # 获取第2行内容
@@ -35,23 +30,27 @@ class ReadWriteExcel:
         print(cols)
         '''
         for row in range(sheet.nrows):
-            rowvalue = sheet.row_values(row)
-            return rowvalue
+            row_value = sheet.row_values(row)
+            # print(row_value)
         # sheet.cell_value(row, 0) 获取具体单元格参数值
         for row in range(sheet.nrows-1):
-            urlval = sheet.cell_value(row+1, 4)
+            req_type = sheet.cell_value(row+1, 2)
+            url_val = sheet.cell_value(row+1, 4)
             param = sheet.cell_value(row+1, 6)
-            paramval = sheet.cell_value(row+1, 7)
+            param_val = sheet.cell_value(row+1, 7)
             key = sheet.cell_value(row+1, 8)
             rtunfmat = sheet.cell_value(row+1, 10)
             isrun = sheet.cell_value(row+1, 13)
-            urls.append(urlval)
-            params.append(param)
-            paramvals.append(paramval)
-            keys.append(key)
-            rtunfmats.append(rtunfmat)
-            isruns.append(isrun)
-        return urls, params, paramvals, keys, rtunfmats, isruns
+            set_row = {'req_type': req_type,
+                       'url_val': url_val,
+                       'param': param,
+                       'param_val': param_val,
+                       'key': key,
+                       'rtunfmat': rtunfmat,
+                       'isrun': isrun
+                       }
+            pams.append(set_row)
+        return pams
 
     def update_excel(self):
         pass
