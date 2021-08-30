@@ -1,17 +1,15 @@
 # -*-coding:utf-8 -*-
+import unittest
 import requests
 from ReadWriteExcel import ReadWriteExcel
-# Api请求发起,核心部分
-# 需要做的是获取excel的参数，构造请求；当前暂时添加核心参数，后续补充其他功能
-# 判断req_type 写if
-# 获取url&params
-# 写完之后怎么根unittest结合
-# 结合报告、邮件、log等其他
+import HTMLTestRunner
+import time
 
 
-class ApiRequest:
+class ApiTest(unittest.TestCase):
 
-    def getpms_req(self, filpath):
+    def test_a(self):
+        filpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls'
         get_pm = ReadWriteExcel()   # 一定要先实例化再引用类方法
         pms = get_pm.read_excel(filpath)
         for pm in pms:
@@ -36,9 +34,28 @@ class ApiRequest:
                 print(r.text)
             else:
                 print('error,请检查测试模板文件数据')
+                
+    # def testA(self):
+    #     fpath = (r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls')
+    #     ta = ApiRequest()
+    #     ta.getpms_req(fpath)
 
 
 if __name__ == '__main__':
-    requ = ApiRequest()
-    requ.getpms_req(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls')
+    # unittest.main()
+    suite = unittest.TestSuite()
+    suite.addTests('test_a')
+    runner = unittest.TextTestRunner()
+    now = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
+    fp = open(now + 'result.html', 'wb')
 
+    # 定义报告格式
+    runner = HTMLTestRunner.HTMLTestRunner(
+        stream=fp,
+        title='规范性检查测试报告',
+        description=u'用例执行情况:')
+
+    # 运行测试用例
+    runner.run(suite)
+    # 关闭报告文件
+    fp.close()
