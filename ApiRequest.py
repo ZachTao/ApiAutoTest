@@ -34,6 +34,8 @@ class ApiRequest:
             elif req_typ == 'post':
                 r = requests.post(url_var, params=paras)
                 print(r.text)
+            else:
+                print('error,请检查测试模板文件数据')
 
 
 if __name__ == '__main__':
