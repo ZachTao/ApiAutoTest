@@ -36,8 +36,8 @@ class ReadWriteExcel:
         '''
         for row in range(sheet.nrows):
             rowvalue = sheet.row_values(row)
-            print(rowvalue)
-        # sheet.cell_value(rown, 0) 获取具体单元格参数值
+            return rowvalue
+        # sheet.cell_value(row, 0) 获取具体单元格参数值
         for row in range(sheet.nrows-1):
             urlval = sheet.cell_value(row+1, 4)
             param = sheet.cell_value(row+1, 6)
