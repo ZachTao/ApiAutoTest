@@ -50,7 +50,7 @@ class ReadWriteExcel:
                        'isrun': isrun
                        }
             pams.append(set_row)
-        print(pams)
+        # print(pams)
         return pams
 
 
