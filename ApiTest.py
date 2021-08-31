@@ -1,61 +1,44 @@
 # -*-coding:utf-8 -*-
 import unittest
-import requests
-from ReadWriteExcel import ReadWriteExcel
+from ApiRequest import ApiRequest
 import HTMLTestRunner
 import time
+'''
+ # addTest 单独添加测试用例，内容为：类名（“方法名”）；
+    # Test2是要测试的类名，test_one是要执行的测试方法
+    # 执行其余的方法直接依照添加
+    # suite.addTest(Test2("test_two"))
+    # suite.addTest(Test2("test_one"))
+
+    # addTests 是将需要执行的测试用例放到一个list后，再进行add，addTests 格式为：addTests(用例list名称)；
+    tests = [Test2("test_two"), Test2("test_one")]
+    suite.addTests(tests)
+'''
 
 
 class ApiTest(unittest.TestCase):
 
-    def test_a(self):
-        filpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls'
-        get_pm = ReadWriteExcel()   # 一定要先实例化再引用类方法
-        pms = get_pm.read_excel(filpath)
-        for pm in pms:
-            req_typ = pm['req_type']
-            url_var = pm['url_val']
-            # 组合params
-            paras = {
-                'key': pm['key'],
-                'dtype': pm['rtunfmat'],
-            }
-            lins = pm['param'].split('&')
-            linvs = str(pm['param_val']).split('&')
-            for i in range(len(lins)):
-                paras[lins[i]] = linvs[i]
-            # print(paras)
-            # 构建请求
-            if req_typ == 'get':
-                r = requests.get(url_var, params=paras)
-                print(r.text)
-            elif req_typ == 'post':
-                r = requests.post(url_var, params=paras)
-                print(r.text)
-            else:
-                print('error,请检查测试模板文件数据')
-                
-    # def testA(self):
-    #     fpath = (r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls')
-    #     ta = ApiRequest()
-    #     ta.getpms_req(fpath)
+    def testA(self):
+        fpath = (r'/home/zach/pystore/PycharmProjects/ApiAutoTest/templates/ApiData.xls')
+        ta = ApiRequest()
+        ta.getpms_req(fpath)
 
 
 if __name__ == '__main__':
     # unittest.main()
     suite = unittest.TestSuite()
-    suite.addTests('test_a')
-    runner = unittest.TextTestRunner()
+    # suite.addTest(ApiTest('testA'))
+    suite.addTests([ApiTest('testA')])
+    # runner = unittest.TextTestRunner()
     now = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
     fp = open(now + 'result.html', 'wb')
-
     # 定义报告格式
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=fp,
         title='规范性检查测试报告',
         description=u'用例执行情况:')
-
+    print("到这了222")
     # 运行测试用例
-    runner.run(suite)
-    # 关闭报告文件
     fp.close()
+    # 关闭报告文件
+
