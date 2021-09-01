@@ -13,6 +13,6 @@ def list_of_groups(list_info, per_list_len):
 
 
 if __name__ == '__main__':
-    list_info = ['name Rookey', 'age 10', 'sex man', 'name lisi', 'age 11', 'sex women']
+    list_info = ['aa', 'ab', 'ba', 'bb', 'ca', 'cb']
     ret = list_of_groups(list_info, 3)
     print(ret)

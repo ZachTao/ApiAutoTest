@@ -5,7 +5,7 @@ import requests
 import logging
 from parameterized import parameterized
 from DealParam import DealParams
-from HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner_PY3 import HTMLTestRunner
 from logpri import MyLogging
 
 flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
@@ -41,7 +41,7 @@ class GoRequests(unittest.TestCase):
             #     results = requests.delete(requrl, headers=headers)
             response = results.json()
             code = response.get("reason")
-            self.assertIn(code, '2312', msg='返回reason不一致，测试不通过')
+            self.assertIn(code, 'Return Successd!/ok', msg='返回reason不一致，测试不通过')
         except Exception as e:
             # logging.error("service is error", e)
             log.info(e)
