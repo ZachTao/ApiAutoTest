@@ -6,46 +6,52 @@ import logging
 from parameterized import parameterized
 from DealParam import DealParams
 from HTMLTestRunner import HTMLTestRunner
+from logpri import MyLogging
 
+flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
+log = MyLogging().logger
 
 class GoRequests(unittest.TestCase):
-    # headers = {
-    #     'User - Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-    #                     'Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84'}
-    # @parameterized.expand(DealParams())
-    @parameterized.expand(['get', 'http://apis.juhe.cn/mobile/get', {'key': 'cbc373b0719df7a8e129b0128a5a94a4', 'dtype': 'json', 'phone': '19974865500.0'}])
-    # 上面返回的参数需要是List
+
+    def chuan_can(self):
+        la = DealParams()
+        cans = la.dealparams(filpath=flpath)
+        return cans
+
+    @parameterized.expand(chuan_can(flpath))
+    # 上面返回的参数需要是List[[],[]]
     def test_rego(self, reqmethod, requrl, regparams):
-        print('----------run----------')
+        log.info("发送接口调用")
         try:
             if reqmethod == ("post" or "POST"):
                 results = requests.post(requrl, regparams)
-                print('-----------post------------')
+                log.info("返回结果：%s" % results)
             elif reqmethod == ("get" or "GET"):
                 results = requests.get(requrl, regparams)
-                print('-----------get------------')
+                log.info("返回结果：%s" % results)
             elif reqmethod == "put":
                 results = requests.put(requrl, regparams)
+                log.info("返回结果：%s" % results)
             elif reqmethod == "patch":
                 results = requests.patch(requrl, regparams)
+                log.info("返回结果：%s" % results)
             # elif reqmethod == "options":
             #     results = requests.options(requrl, headers=headers)
             # elif reqmethod == "delete":
             #     results = requests.delete(requrl, headers=headers)
             response = results.json()
-            print(response)
             code = response.get("reason")
-            print(code)
-            return code
+            self.assertIn(code, '2312', msg='返回reason不一致，测试不通过')
         except Exception as e:
-            logging.error("service is error", e)
+            # logging.error("service is error", e)
+            log.info(e)
 
 
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(GoRequests))
     now = time.strftime('%Y-%m-%d %H_%M_%S')
-    report_path = r"/home/zach/pystore/PycharmProjects/ApiAutoTest/resultC/report.html"
+    report_path = r"/home/zach/pystore/PycharmProjects/ApiAutoTest/resultC/"+now+"ApiTestReport.html"
     with open(report_path, "wb") as f:
-        runner = HTMLTestRunner(stream=f, title="Esearch接口测试报告", description="测试用例执行情况", verbosity=2)
+        runner = HTMLTestRunner(stream=f, title="ApiTestReport", description="Api自动化测试byZachTao", verbosity=2)
         runner.run(suite)
