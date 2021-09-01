@@ -1,6 +1,6 @@
 # -*-coding:utf-8 -*-
 import unittest
-from DealParams import ApiRequest
+from DealParam import ApiRequest
 import HTMLTestRunner
 import time
 import os

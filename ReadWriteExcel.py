@@ -50,7 +50,6 @@ class ReadWriteExcel:
                        'isrun': isrun
                        }
             pams.append(set_row)
-        # print(pams)
         return pams
 
 
@@ -61,4 +60,4 @@ class ReadWriteExcel:
 
 if __name__ == '__main__':
     A = ReadWriteExcel()
-    A.read_excel(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/ini/ApiData.xls')
+    A.read_excel(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls')
