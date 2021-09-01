@@ -1,6 +1,0 @@
-2021-09-01 15:30:36,500 GoRequests.py[line:24]INFO - 发送接口调用
-2021-09-01 15:30:36,687 GoRequests.py[line:31]INFO - 返回结果：<Response [200]>
-2021-09-01 15:30:36,687 GoRequests.py[line:47]INFO - 'Return Successd!' not found in '2312' : 返回reason不一致，测试不通过
-2021-09-01 15:30:36,687 GoRequests.py[line:24]INFO - 发送接口调用
-2021-09-01 15:30:37,104 GoRequests.py[line:28]INFO - 返回结果：<Response [200]>
-2021-09-01 15:30:37,105 GoRequests.py[line:47]INFO - 'ok' not found in '2312' : 返回reason不一致，测试不通过

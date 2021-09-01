@@ -52,8 +52,6 @@ class ReadWriteExcel:
             pams.append(set_row)
         return pams
 
-
-
     def update_excel(self):
         pass
 

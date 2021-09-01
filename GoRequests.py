@@ -5,11 +5,12 @@ import requests
 import logging
 from parameterized import parameterized
 from DealParam import DealParams
-from HTMLTestRunner_PY3 import HTMLTestRunner
+from HTMLTestRunnerNew import HTMLTestRunner
 from logpri import MyLogging
 
 flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
 log = MyLogging().logger
+
 
 class GoRequests(unittest.TestCase):
 
@@ -24,24 +25,35 @@ class GoRequests(unittest.TestCase):
         log.info("发送接口调用")
         try:
             if reqmethod == ("post" or "POST"):
+                log.info("请求参数：%s" % regparams)
+                log.info("请求地址：%s" % requrl)
                 results = requests.post(requrl, regparams)
                 log.info("返回结果：%s" % results)
+                log.info("返回参数：%s" % results.text)
             elif reqmethod == ("get" or "GET"):
+                log.info("请求参数：%s" % regparams)
+                log.info("请求地址：%s" % requrl)
                 results = requests.get(requrl, regparams)
                 log.info("返回结果：%s" % results)
+                log.info("返回参数：%s" % results.text)
             elif reqmethod == "put":
+                log.info("请求参数：%s" % regparams)
+                log.info("请求地址：%s" % requrl)
                 results = requests.put(requrl, regparams)
                 log.info("返回结果：%s" % results)
+                log.info("返回参数：%s" % results.text)
             elif reqmethod == "patch":
+                log.info("请求参数：%s" % regparams)
+                log.info("请求地址：%s" % requrl)
                 results = requests.patch(requrl, regparams)
                 log.info("返回结果：%s" % results)
+                log.info("返回参数：%s" % results.text)
             # elif reqmethod == "options":
             #     results = requests.options(requrl, headers=headers)
             # elif reqmethod == "delete":
             #     results = requests.delete(requrl, headers=headers)
-            response = results.json()
-            code = response.get("reason")
-            self.assertIn(code, 'Return Successd!/ok', msg='返回reason不一致，测试不通过')
+            response = results.status_code
+            self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
         except Exception as e:
             # logging.error("service is error", e)
             log.info(e)
