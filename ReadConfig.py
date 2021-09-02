@@ -50,6 +50,12 @@ class GetIni:
                 ccs = con.get("Email", "cc")
                 relcc = ccs.split(',')
                 emicans.append(relcc)
+            elif option == 'reportdc':
+                rdc = con.get("Email", "reportdc")
+                lists = os.listdir(rdc)  # 列出目录的下所有文件和文件夹保存到lists
+                lists.sort(key=lambda fn: os.path.getmtime(rdc + "//" + fn))  # 按时间排序
+                file_new = os.path.join(rdc, lists[-1])  # 获取最新的文件保存到file_new
+                emicans.append(file_new)
             else:
                 golopt = con.get("Email", option)
                 emicans.append(golopt)

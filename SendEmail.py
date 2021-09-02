@@ -3,19 +3,20 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
-import ReadConfig
+import os
+from ReadConfig import GetIni
 
 
 class SendEmail:
 
-    def __init__(self, fromm, to, cc, part, tittle, text, pw):
+    def __init__(self, fromm, to, cc, tittle, text, pw, part):
         self.fromm = fromm
         self.to = to
         self.cc = cc
-        self.part = part
         self.tittle = tittle
         self.text = text
         self.pw = pw
+        self.part = part
 
     def log_in(self):
         server = smtplib.SMTP_SSL()
@@ -46,9 +47,9 @@ class SendEmail:
 
 
 if __name__ == '__main__':
-    print('-------------start--------------')
-    part_address = '/home/zach/pystore/PycharmProjects/ApiAutoTest/resultC/2021-09-01 17_26_29ApiTestReport.html'
-    s = SendEmail('1628995607@qq.com', ['1742235136@qq.com', '429529484@qq.com'], ['kevintaoxxy@163.com'], part_address, '测试邮件', '测试邮件内容', 'vcthhoovrwzwbecc')
+    a = GetIni()
+    b = a.get_email_ini()
+    s = SendEmail(b[0], b[1], b[2], b[3], b[4], b[5], b[6])
     s.log_in()
     print('邮件已发送！')
 
