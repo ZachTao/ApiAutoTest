@@ -2,11 +2,15 @@
 import unittest
 import time
 import requests
-import logging
 from parameterized import parameterized
 from DealParam import DealParams
-from HTMLTestRunnerNew import HTMLTestRunner
+from imporfile.HTMLTestRunnerNew import HTMLTestRunner
+# from HTMLTestRunner_PY3 import HTMLTestRunner
+# from HTMLTestRunner1 import HTMLTestRunner
 from logpri import MyLogging
+from SendEmail import SendEmail
+from ReadConfig import GetIni
+
 
 flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
 log = MyLogging().logger
@@ -67,3 +71,9 @@ if __name__ == '__main__':
     with open(report_path, "wb") as f:
         runner = HTMLTestRunner(stream=f, title="ApiTestReport", description="Api自动化测试byZachTao", verbosity=2)
         runner.run(suite)
+    time.sleep(5)
+    a = GetIni()
+    b = a.get_email_ini()
+    s = SendEmail(b[0], b[1], b[2], b[3], b[4], b[5])
+    s.log_in()
+    print('邮件已发送！')

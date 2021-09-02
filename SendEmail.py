@@ -9,12 +9,11 @@ from ReadConfig import GetIni
 
 class SendEmail:
 
-    def __init__(self, fromm, to, cc, tittle, text, pw, part):
+    def __init__(self, fromm, to, cc, tittle, pw, part):
         self.fromm = fromm
         self.to = to
         self.cc = cc
         self.tittle = tittle
-        self.text = text
         self.pw = pw
         self.part = part
 
@@ -35,8 +34,8 @@ class SendEmail:
         message['To'] = ",".join(self.cc)
         message['Subject'] = Header(self.tittle, 'utf-8')
         body = MIMEText(open(self.part, 'rb').read(), _subtype="html", _charset="utf-8")
-        message.attach(MIMEText(self.text, 'plain', 'utf-8'))  # 邮件正文
         message.attach(body)  # 附件内容html格式显示在文本内容中
+        # message.attach(MIMEText(self.text, 'plain', 'utf-8'))  # 邮件正文
         # 构造附件
         att1 = MIMEText(open(self.part, 'rb').read(), 'base64', 'utf-8')
         att1["Content-Type"] = 'application/octet-stream'
