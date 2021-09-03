@@ -6,11 +6,11 @@ from parameterized import parameterized
 from DealParam import DealParams
 from imporfile.HTMLTestRunnerNew import HTMLTestRunner
 # from HTMLTestRunner_PY3 import HTMLTestRunner
-# from HTMLTestRunner1 import HTMLTestRunner
+# from imporfile.HTMLTestRunner import HTMLTestRunner
 from logpri import MyLogging
 from SendEmail import SendEmail
 from ReadConfig import GetIni
-
+import logging
 
 flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
 log = MyLogging().logger
@@ -34,33 +34,41 @@ class GoRequests(unittest.TestCase):
                 results = requests.post(requrl, regparams)
                 log.info("返回结果：%s" % results)
                 log.info("返回参数：%s" % results.text)
+                response = results.status_code
+                self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
             elif reqmethod == ("get" or "GET"):
                 log.info("请求参数：%s" % regparams)
                 log.info("请求地址：%s" % requrl)
                 results = requests.get(requrl, regparams)
                 log.info("返回结果：%s" % results)
                 log.info("返回参数：%s" % results.text)
+                response = results.status_code
+                self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
             elif reqmethod == "put":
                 log.info("请求参数：%s" % regparams)
                 log.info("请求地址：%s" % requrl)
                 results = requests.put(requrl, regparams)
                 log.info("返回结果：%s" % results)
                 log.info("返回参数：%s" % results.text)
+                response = results.status_code
+                self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
             elif reqmethod == "patch":
                 log.info("请求参数：%s" % regparams)
                 log.info("请求地址：%s" % requrl)
                 results = requests.patch(requrl, regparams)
                 log.info("返回结果：%s" % results)
                 log.info("返回参数：%s" % results.text)
+                response = results.status_code
+                self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
             # elif reqmethod == "options":
             #     results = requests.options(requrl, headers=headers)
             # elif reqmethod == "delete":
             #     results = requests.delete(requrl, headers=headers)
-            response = results.status_code
-            self.assertIn(response, [200], msg='返回reason不一致，测试不通过')
+            else:
+                print('请求方法错误，请检查测试用例method数据')
         except Exception as e:
             # logging.error("service is error", e)
-            log.info(e)
+            log.info('接口调用出现异常了：%s' % e)
 
 
 if __name__ == '__main__':

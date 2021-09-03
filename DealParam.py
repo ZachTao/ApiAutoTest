@@ -26,7 +26,6 @@ class DealParams:
                 paras[lins[i]] = linvs[i]
             Jihe.append(paras)
         ret = list_of_groups(Jihe, 3)
-        print(ret)
         return ret
 
 
