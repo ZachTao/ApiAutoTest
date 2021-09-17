@@ -39,7 +39,7 @@ class GetIni:
         curpath = os.path.dirname(os.path.realpath(__file__))  # 获取文件目录
         cfgpath = os.path.join(curpath, 'ini/myconfig.ini')
         con = configparser.ConfigParser()
-        con.read(cfgpath)
+        con.read(cfgpath, encoding='utf-8')
         options = con.options('Email')
         for option in options:
             if option == 'receiver':

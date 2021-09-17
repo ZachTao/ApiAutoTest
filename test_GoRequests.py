@@ -12,7 +12,7 @@ from SendEmail import SendEmail
 from ReadConfig import GetIni
 import logging
 
-flpath = r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls'
+flpath = r'F:\PycharmProjects\ApiAutoTest\case_excel\ApiData.xls'
 log = MyLogging().logger
 
 
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(GoRequests))
     now = time.strftime('%Y-%m-%d %H_%M_%S')
-    report_path = r"/home/zach/pystore/PycharmProjects/ApiAutoTest/resultC/"+now+"ApiTestReport.html"
+    report_path = r"F:\PycharmProjects\ApiAutoTest\HtmlRunnerResultC/"+now+"ApiTestReport.html"
     with open(report_path, "wb") as f:
         runner = HTMLTestRunner(stream=f, title="ApiTestReport", description="Api自动化测试byZachTao", verbosity=2)
         runner.run(suite)

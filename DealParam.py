@@ -7,7 +7,7 @@ class DealParams:
 
     def dealparams(self, filpath):
         Jihe = []
-        get_pm = ReadWriteExcel()  # 一定要先实例化再引用类方法
+        get_pm = ReadWriteExcel()
         pms = get_pm.read_excel(filpath)
         # print(pms)
         for pm in pms:
@@ -31,4 +31,4 @@ class DealParams:
 
 if __name__ == '__main__':
     requ = DealParams()
-    requ.dealparams(r'/home/zach/pystore/PycharmProjects/ApiAutoTest/case_excel/ApiData.xls')
+    requ.dealparams(r'F:\PycharmProjects\ApiAutoTest\case_excel\ApiData.xls')

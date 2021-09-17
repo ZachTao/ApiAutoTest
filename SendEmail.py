@@ -18,8 +18,8 @@ class SendEmail:
         self.part = part
 
     def log_in(self):
-        server = smtplib.SMTP_SSL()
-        server.connect('smtp.qq.com', 465)
+        server = smtplib.SMTP_SSL('smtp.qq.com', 465)
+        # server.connect('smtp.qq.com', 465)
         server.login(self.fromm, self.pw)
         try:
             server.sendmail(self.fromm, self.to, self.makedata())
