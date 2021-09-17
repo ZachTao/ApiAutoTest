@@ -23,3 +23,4 @@ class Compare:
             else:
                 flag = False
         return flag
+

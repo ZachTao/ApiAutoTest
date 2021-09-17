@@ -35,7 +35,7 @@ class SendEmail:
         message['Subject'] = Header(self.tittle, 'utf-8')
         body = MIMEText(open(self.part, 'rb').read(), _subtype="html", _charset="utf-8")
         message.attach(body)  # 附件内容html格式显示在文本内容中
-        # message.attach(MIMEText(self.text, 'plain', 'utf-8'))  # 邮件正文
+        # message.attach(MIMEText(self.text, 'plain', 'utf-8'))  # 邮件正文.
         # 构造附件
         att1 = MIMEText(open(self.part, 'rb').read(), 'base64', 'utf-8')
         att1["Content-Type"] = 'application/octet-stream'

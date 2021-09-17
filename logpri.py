@@ -26,7 +26,7 @@ class MyLogging:
         sh.setFormatter(formatter)
         fh.setFormatter(formatter)
 
-        # 将handler增加到logger中
+        # 将handler增加到logger中.
         self.logger.addHandler(sh)
         self.logger.addHandler(fh)
 

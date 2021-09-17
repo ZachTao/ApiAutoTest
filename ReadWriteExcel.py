@@ -3,7 +3,7 @@
 封装读写文件类，后续用于处理接口请求数据
 读取url、params、token等信息
 写入接口返回状态码或者返回json数据、更新时间..
-attention:2.0.1版本的xlrd只支持xls文件，不能打开xlsx文件
+attention:2.0.1版本的xlrd只支持xls文件，不能打开xlsx文件.
 '''
 import xlrd
 

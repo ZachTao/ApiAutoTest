@@ -32,3 +32,4 @@ class DealParams:
 if __name__ == '__main__':
     requ = DealParams()
     requ.dealparams(r'F:\PycharmProjects\ApiAutoTest\case_excel\ApiData.xls')
+

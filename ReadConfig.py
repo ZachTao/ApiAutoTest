@@ -36,7 +36,7 @@ class GetIni:
 
     def get_email_ini(self):
         emicans = []
-        curpath = os.path.dirname(os.path.realpath(__file__))  # 获取文件目录
+        curpath = os.path.dirname(os.path.realpath(__file__))  # 获取文件目录.
         cfgpath = os.path.join(curpath, 'ini/myconfig.ini')
         con = configparser.ConfigParser()
         con.read(cfgpath, encoding='utf-8')

@@ -77,7 +77,7 @@ if __name__ == '__main__':
     now = time.strftime('%Y-%m-%d %H_%M_%S')
     report_path = r"F:\PycharmProjects\ApiAutoTest\HtmlRunnerResultC/"+now+"ApiTestReport.html"
     with open(report_path, "wb") as f:
-        runner = HTMLTestRunner(stream=f, title="ApiTestReport", description="Api自动化测试byZachTao", verbosity=2)
+        runner = HTMLTestRunner(stream=f, title="ApiTestReport", description="API自动化测试byZachTao", verbosity=2)
         runner.run(suite)
     time.sleep(5)
     a = GetIni()

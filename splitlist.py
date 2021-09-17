@@ -2,7 +2,7 @@
 def list_of_groups(list_info, per_list_len):
     '''
     :param list_info:   列表
-    :param per_list_len:  每个小列表的长度
+    :param per_list_len:  每个小列表的长度.
     :return:
     '''
     list_of_group = zip(*(iter(list_info),) * per_list_len)
